@@ -95,155 +95,206 @@ void bSearchTreeType<T>::destroy(nodeType<T>*& p) {
 /************************************************************
   Task 1: insert (public wrapper)
 ************************************************************/
+/************************************************************
+
+  Task 1: insert (public wrapper)
+
+************************************************************/
+
 template <class T>
+
 void bSearchTreeType<T>::insert(const T& item) {
-    // TODO:
-    // Call the recursive insert helper starting from root.
-    // Example: insert(root, item);
+
+    insert(root, item);
+
 }
 
 /************************************************************
+
   Task 1: insert (recursive)
-  Policy:
-   - if item < p->info  => go left
-   - else               => go right (also handles duplicates)
+
 ************************************************************/
+
 template <class T>
+
 void bSearchTreeType<T>::insert(nodeType<T>*& p, const T& item) {
-    // TODO:
-    // If p is null, create a new node.
-  if(p==nullptr){
-      p= new nodeType<T>(item);
-      return;
-  }
-  if(item<p ->info){
-      insert(p->llink,item);
-  }
-  else{
-      insert(p->rlink,item);
-  }
+
+    if (p == nullptr) {
+
+        p = new nodeType<T>(item);
+
+        return;
+
+    }
+
+    if (item < p->info) {
+
+        insert(p->llink, item);
+
+    } else {
+
+        insert(p->rlink, item); // duplicates go right
+
+    }
+
 }
 
 /************************************************************
+
   Task 2: Traversals (public wrappers)
+
 ************************************************************/
+
 template <class T>
+
 void bSearchTreeType<T>::inorderTraversal() const {
-    // TODO: call inorder(root)
+
+    inorder(root);
+
 }
 
 template <class T>
+
 void bSearchTreeType<T>::preorderTraversal() const {
-    // TODO: call preorder(root)
+
+    preorder(root);
+
 }
 
 template <class T>
+
 void bSearchTreeType<T>::postorderTraversal() const {
-    // TODO: call postorder(root)
+
+    postorder(root);
+
 }
 
 /************************************************************
+
   Task 2: Traversals (recursive)
-  inorder:   Left, Root, Right
-  preorder:  Root, Left, Right
-  postorder: Left, Right, Root
+
 ************************************************************/
+
 template <class T>
+
 void bSearchTreeType<T>::inorder(nodeType<T>* p) const {
-    // TODO:
-    // If p is null return
-    if(p==nullptr)return;
-    // Visit left, print root, visit right
+
+    if (p == nullptr) return;
+
     inorder(p->llink);
-    cout << p->info << "";
+
+    cout << p->info << " ";
+
     inorder(p->rlink);
-    
+
 }
 
 template <class T>
+
 void bSearchTreeType<T>::preorder(nodeType<T>* p) const {
-    // TODO:
-    // If p is null return
-    // Print root, visit left, visit right
-     if(p==nullptr)return;
-     cout << p->info << "";
-     preorder(p->llink);
-     preorder(p->rlink);
+
+    if (p == nullptr) return;
+
+    cout << p->info << " ";
+
+    preorder(p->llink);
+
+    preorder(p->rlink);
+
 }
 
 template <class T>
+
 void bSearchTreeType<T>::postorder(nodeType<T>* p) const {
-    // TODO:
-    // If p is null return
-    // Visit left, visit right, print root
-      if(p==nullptr)return;
- 
-     preorder(p->llink);
-     preorder(p->rlink);
-       cout << p->info << "";
+
+    if (p == nullptr) return;
+
+    postorder(p->llink);
+
+    postorder(p->rlink);
+
+    cout << p->info << " ";
+
 }
 
 /************************************************************
+
   Task 3: treeHeight
-  Height rules:
-   - empty tree => 0
-   - single node => 1
+
 ************************************************************/
+
 template <class T>
+
 int bSearchTreeType<T>::treeHeight() const {
-    // TODO: return height(root)
+
     return height(root);
+
 }
 
 template <class T>
+
 int bSearchTreeType<T>::height(nodeType<T>* p) const {
-    // TODO:
-    // If p is null => 0
-      if(p==nullptr)return 0;
-      int hl = height(p->llink);
-      int hr = height(p->rlink);
-    // else => 1 + max(height(left), height(right))
-    return 1 + (hl > hr ? hl : hr);
+
+    if (p == nullptr) return 0;
+
+    int lh = height(p->llink);
+
+    int rh = height(p->rlink);
+
+    return 1 + (lh > rh ? lh : rh);
+
 }
 
 /************************************************************
+
   Task 4: treeNodeCount
+
 ************************************************************/
+
 template <class T>
+
 int bSearchTreeType<T>::treeNodeCount() const {
-    // TODO: return nodeCount(root)
+
     return nodeCount(root);
+
 }
 
 template <class T>
+
 int bSearchTreeType<T>::nodeCount(nodeType<T>* p) const {
-    // TODO:
-    // If p is null => 0
-    if(p==nullptr)return 0;
-    // else => 1 + nodeCount(left) + nodeCount(right)
-    return 1 + nodeCount(p->llink) + nodeCount(p->rlink) ;
+
+    if (p == nullptr) return 0;
+
+    return 1 + nodeCount(p->llink) + nodeCount(p->rlink);
+
 }
 
 /************************************************************
+
   Task 5: treeLeavesCount
-  Leaf = node with no children
+
 ************************************************************/
+
 template <class T>
+
 int bSearchTreeType<T>::treeLeavesCount() const {
-    // TODO: return leavesCount(root)
+
     return leavesCount(root);
+
 }
 
 template <class T>
+
 int bSearchTreeType<T>::leavesCount(nodeType<T>* p) const {
-    // TODO:
-    // If p is null => 0
-     if(p==nullptr)return 0;
-    // If p is leaf => 1
-    if(p->llink == nullptr && p->rlink == nullptr);
-    // else => leavesCount(left) + leavesCount(right)
+
+    if (p == nullptr) return 0;
+
+    if (p->llink == nullptr && p->rlink == nullptr) return 1;
+
     return leavesCount(p->llink) + leavesCount(p->rlink);
+
 }
+ 
 
 /************************************************************
   MAIN (same behavior as your snippet)
